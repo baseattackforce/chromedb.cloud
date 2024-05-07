@@ -1,9 +1,41 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>testing</title>
-  </head>
-  <body>
-    <p>test</p>
-  </body>
-</html>
+<div class="min-h-screen bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <label for="search" class="block text-zinc-700 dark:text-zinc-300 text-sm font-medium mb-2"
+      >Search:</label
+    >
+    <input
+      type="text"
+      id="search"
+      class="block w-full p-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-800 dark:text-white"
+      placeholder="Type to search..."
+    />
+    <ul
+      id="resultList"
+      class="mt-2 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-md divide-y divide-zinc-200 dark:divide-zinc-700"
+    ></ul>
+  </div>
+</div>
+<script>
+  const searchDictionary = {
+   //go with a "name" : "text"
+  };
+
+  const searchInput = document.getElementById('search');
+  const resultList = document.getElementById('resultList');
+
+  searchInput.addEventListener('input', () => {
+    const searchValue = searchInput.value.toLowerCase();
+    resultList.innerHTML = '';
+
+    if (searchValue) {
+      for (const key in searchDictionary) {
+        if (key.toLowerCase().startsWith(searchValue)) {
+          const resultItem = document.createElement('li');
+          resultItem.classList.add('p-3', 'hover:bg-zinc-200', 'dark:hover:bg-zinc-700', 'cursor-pointer');
+          resultItem.textContent = `${key}: ${searchDictionary[key]}`;
+          resultList.appendChild(resultItem);
+        }
+      }
+    }
+  });
+</script>
